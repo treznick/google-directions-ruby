@@ -1,5 +1,4 @@
 # encoding: UTF-8
-require 'cgi'
 require 'net/http'
 require 'open-uri'
 require 'nokogiri'
@@ -96,7 +95,8 @@ class Hash
 
   def to_query
     collect do |k, v|
-      "#{k}=#{CGI::escape(v.to_s)}"
+      URI.encode_www_form({ k => v})
+      #"#{k}=#{CGI::escape(v.to_s)}"
     end * '&'
   end unless method_defined? :to_query
 
